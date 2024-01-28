@@ -9,7 +9,7 @@ const {
   listAllUsers
 } = require("./userController");
 const userModel = require("../models/userModel");
-const { authenticateToken } = require("../routes/authController");
+const { authenticateToken, deleteRefreshToken } = require("../routes/authController");
 
 // POST: Create a new user
 router.post("/registerUser", registerUser);
@@ -28,6 +28,9 @@ router.post("/login", loginUser);
 
 // POST: Forget password
 router.post("/changePassword", changePassword);
+
+// POST: Deletes corresponding refresh token from database on logout
+router.post("/logout", deleteRefreshToken);
 
 
 
