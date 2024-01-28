@@ -6,23 +6,21 @@ const {
   registerUser,
   loginUser,
   changePassword,
-  listAllUsers,
-  getUsers
+  listAllUsers
 } = require("./userController");
 const userModel = require("../models/userModel");
-//const { authenticateToken } = require("../../../../routes/auth/authController");
+const { authenticateToken } = require("../routes/authController");
 
 // POST: Create a new user
 router.post("/registerUser", registerUser);
 
 // GET: Get a user by username
 router.get("/findUser",
-//  authenticateToken(), 
 findUser);
 
 // GET: Get all users
 router.get("/listAllUsers", 
-// authenticateToken(),
+ authenticateToken(),
  listAllUsers);
 
 // POST: Login a user
@@ -31,9 +29,6 @@ router.post("/login", loginUser);
 // POST: Forget password
 router.post("/changePassword", changePassword);
 
-
-// GET: Get all users
-router.get("/getUsers", getUsers);
 
 
 module.exports = router;

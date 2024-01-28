@@ -1,5 +1,5 @@
 const userModel = require("../models/userModel.js");
-// const { createUserTokens } = require("../routes/authController");
+const { createUserTokens } = require("../routes/authController");
 
 
 const findUser = async (req, res) => {
@@ -57,9 +57,9 @@ const changePassword = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { username, password,
-    //  token
-     } = req.body;
+  const { username, password,  
+    // token
+  } = req.body;
 
   // const user = await findUser(username);
   const user = await userModel.findOne({username});
@@ -67,12 +67,13 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Incorrect username or password" });
   }
 
+
   if (user) {
     res.status(200).json({
       user,
-      // tokens: await createUserTokens({
-      //   username: username,
-      // }),
+      tokens: await createUserTokens({
+        username: username,
+      }),
     });
   } else {
     res.status(400).json({ message: "User not found" });
@@ -155,9 +156,9 @@ const registerUser = async (req, res) => {
   return res.status(201).json({
     success: true,
     user: newUser,
-    // tokens: await createUserTokens({
-    //   username: username,
-    // }),
+    tokens: await createUserTokens({
+      username: username,
+    }),
   });
   }catch (err) {
     return res.status(400).json({ success: false, message: err.message });
@@ -165,10 +166,7 @@ const registerUser = async (req, res) => {
   
 };
 
-const getUsers =  async (req, res) => {
-  const users = await userModel.find();
-  res.json(users);
-};
+
 
 module.exports = {
   findUser,
@@ -176,5 +174,4 @@ module.exports = {
   loginUser,
   changePassword,
   listAllUsers,
-  getUsers,
 };
