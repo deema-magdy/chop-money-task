@@ -10,7 +10,7 @@ app.use(express.json());
 // Mongoose Setup
 mongoose.set("strictQuery", false);
 
-const port = 5000;
+const port = 3000;
 
 mongoose
   .connect(process.env.MONGO_URI)
